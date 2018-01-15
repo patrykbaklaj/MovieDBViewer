@@ -43,3 +43,18 @@
         margin: 1em; }
       #intro .container .search-for-movies input {
         margin: 1em; }
+
+i.material-icons, a.navbar-brand span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle; }
+
+.navbar {
+  background: black !important;
+  opacity: 0.5 !important;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  font-size: 0.9em !important; }
+  .navbar:hover {
+    opacity: 1 !important; }

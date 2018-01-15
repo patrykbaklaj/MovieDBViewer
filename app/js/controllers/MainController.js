@@ -15,6 +15,7 @@ Viewer.controller('MainController', function MainController($scope, $http){
     $scope.movieList = response.data.results;
     // show results when searching completed
     $scope.showResults = true;
+    $scope.moviesNumber = response.data.results.length;
   };
 
   var onListError = function(reason) {
@@ -25,6 +26,24 @@ Viewer.controller('MainController', function MainController($scope, $http){
   $scope.searchList = function(searchQuery){
     $http.get($scope.url + $scope.searchQuery).then(onListSearchComplete, onListError);
   };
+
+  // sortOrder
+  $scope.sortOrder = "-vote_count";
+  // movie display on page limitTo
+  $scope.limit = 5;
+  $scope.isMore = true;
+
+  $scope.moreMovies = function() {
+    if ($scope.moviesNumber > $scope.limit) {
+      $scope.limit += 5;
+      if($scope.moviesNumber <= $scope.limit){
+          $scope.isMore = false;
+      }
+    } else {
+        $scope.isMore = false;
+    }
+  }
+
 
   // movie search by ID
   var urlId = "https://api.themoviedb.org/3/movie/";

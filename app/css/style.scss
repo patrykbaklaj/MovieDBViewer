@@ -33,3 +33,18 @@
   }
 
 }
+
+i.material-icons, a.navbar-brand span {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.navbar {
+  background: rgb(0, 0, 0) !important;
+  opacity: 0.5 !important;
+  transition: all 0.4s;
+  font-size: 0.9em !important;
+  &:hover {
+    opacity: 1 !important;
+  }
+}

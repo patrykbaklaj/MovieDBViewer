@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Movie DB Viewer</title>
 
+  <!-- Google icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Bootrap stylesheet v4.0.0. -->
   <link rel="stylesheet" href="./app/lib/bootstrap.min.css">
   <!-- Styles -->
@@ -21,13 +23,13 @@
           <div class="search-for-movies">
             <h1 class="display-3 text-center">Wyszukaj filmy</h1>
             <h4 class="h4 text-center">Wpisz tytuł filmu, aby wyszukać go w naszej bazie</h4>
-            <form class="search-form text-center mt-3" method="post">
+            <form class="search-form text-center mt-3">
               <div class="row justify-content-center">
                 <div class="col-10 col-sm-8 col-md-6 col-lg-4">
                   <div class="input-group mb-3">
                     <input type="text" class="form-control m-0"  placeholder="Tytuł" aria-label="Tytuł" ng-model="searchQuery" required>
                     <div class="input-group-append">
-                      <button class="btn btn-dark" type="submit" ng-click=searchList(searchQuery)>Szukaj</button>
+                      <button id="searchButton" class="btn btn-dark" type="submit" ng-click=searchList(searchQuery)><i class="material-icons">search</i> <span>Szukaj</span></button>
                     </div>
                   </div>
                 </div>
@@ -39,44 +41,76 @@
       </div>
     </section>
 
-    <section class="results" ng-show="showResults">
+    <section class="results mb-5" ng-show="showResults">
       <div class="container">
 
         <h1 class="display-4 mt-4 mb-4">Wyniki wyszukiwania frazy: {{ searchQuery }}</h1>
+        <div class="h3" ng-hide="moviesNumber">
+          Brak wyników
+        </div>
+        <div class="" ng-show="moviesNumber">
 
-        <div class="card mt-3" ng-repeat="movie in movieList | limitTo: 10">
-          <div class="row justify-content-center">
-            <div class="col-8 col-sm-4 col-md-3 col-lg-2 ">
-              <img class="img-fluid" src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" alt="Card image cap" style="max-width: 100%; height: auto">
 
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <h4 class="h4">Kryteria sortowania:</h4>
             </div>
-            <div class="col-8 col-sm-8 col-md-9 col-lg-10 p-3 ">
-              <h2 class="h2">{{ movie.title }}</h2>
-              <p> {{ movie.original_title }}</p>
-              <hr>
-              <div class=row>
-                <div class="col">
-                  <h6 class="h6">Data publikacji: </h6>
-                  <h5 class="h5">{{ movie.release_date }}</h5>
+            <div class="col-12 col-sm-6">
+              <select class="form-control" ng-model="sortOrder">
+                <option value="title">tytuł: A do Z</option>
+                <option value="-title">tytuł: Z do A</option>
+                <option value="-popularity">popularność: malejąco</option>
+                <option value="popularity">popularność: rosnąco</option>
+                <option value="-vote_count">liczba głosów: malejąco</option>
+                <option value="vote_count">liczba głosów: rosnąco</option>
+                <option value="-vote_average">ocena: malejąco</option>
+                <option value="vote_average">ocena: rosnąco</option>
+              </select>
+            </div>
+          </div>
+          <div class="card mt-3" ng-repeat="movie in movieList | limitTo: limit | orderBy: sortOrder ;">
+            <div class="row justify-content-center">
+              <div class="col-8 col-sm-4 col-md-3 col-lg-2 ">
+                <img class="img-fluid" ng-src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" alt="Card image cap" style="max-width: 100%; height: auto">
+
+              </div>
+              <div class="col-8 col-sm-8 col-md-9 col-lg-10 p-3 ">
+                <h2 class="h2">{{ movie.title }}</h2>
+                <p> {{ movie.original_title }}</p>
+                <hr>
+                <div class=row>
+                  <div class="col">
+                    <h6 class="h6">Data publikacji: </h6>
+                    <h5 class="h5">{{ movie.release_date }}</h5>
+                  </div>
+                  <div class="col">
+                    <h6 class="h6">Popularność: </h6>
+                    <h5 class="h5">{{ movie.popularity }}</h5>
+                  </div>
+                  <div class="col">
+                    <h6 class="h6">Liczba głosów: </h6>
+                    <h5 class="h5">{{ movie.vote_count }}</h5>
+                  </div>
+                  <div class="col">
+                    <h6 class="h6">Średnia ocena: </h6>
+                    <h5 class="h5">{{ movie.vote_average }}</h5>
+                  </div>
                 </div>
-                <div class="col">
-                  <h6 class="h6">Popularność: </h6>
-                  <h5 class="h5">{{ movie.popularity }}</h5>
-                </div>
-                <div class="col">
-                  <h6 class="h6">Liczba głosów: </h6>
-                  <h5 class="h5">{{ movie.vote_count }}</h5>
-                </div>
-                <div class="col">
-                  <h6 class="h6">Średnia ocena: </h6>
-                  <h5 class="h5">{{ movie.vote_average }}</h5>
+                <div class="row">
+                  <div class="col text-right">
+                    <input class="btn btn-danger btn-sm mt-2" type="button" name="" value="Więcej szczegółów" ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col text-right">
-                  <input class="btn btn-danger btn-sm mt-2" type="button" name="" value="Więcej szczegółów..." ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
-                </div>
-              </div>
+            </div>
+
+          </div>
+          <div class="row justify-content-center mt-3">
+            <div class="col" ng-show="isMore">
+              <button class="btn btn-info btn-sm btn-block mb-4" type="button" ng-click="moreMovies()" >Wczytaj więcej filmów</button>
+            </div>
+            <div class="col text-right">
+              <button class="btn btn-info btn-sm btn-block mb-4" type="button" id="top">Powrót</button>
             </div>
           </div>
         </div>
@@ -130,10 +164,17 @@
           </div>
         </div>
       </div>
-
     </section>
 
   </main>
+  <footer>
+    <nav class="navbar fixed-bottom navbar-dark bg-dark p-0">
+      <div class="container">
+        <a class="navbar-brand" href="https://patrykbaklaj.github.io/" target="_blank"><i class="material-icons mr-3">copyright</i><span> Patryk Bakłaj</span></a>
+      </div>
+    </nav>
+  </footer>
+
   <!-- jQuery -->
   <script type="text/javascript" src="./app/lib/jquery-3.2.1.min.js"></script>
   <!-- Bootsrap script v 4.0.0 -->
