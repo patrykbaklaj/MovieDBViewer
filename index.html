@@ -6,26 +6,138 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Movie DB Viewer</title>
 
-  <!-- Bootrap stylesheet v3.3.7 -->
+  <!-- Bootrap stylesheet v4.0.0. -->
   <link rel="stylesheet" href="./app/lib/bootstrap.min.css">
   <!-- Styles -->
   <link rel="stylesheet" href="./app/build/main.css">
 </head>
-<body ng-app="Viewer">
+<body ng-app="Viewer" ng-controller="MainController">
 
-  <main class="container">
+  <main>
 
-    <h1 class="h1">To jest nagłówek</h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-    <h2>{{ 2 + 12 }}</h2>
+    <section id="intro" >
+      <div class="outer-container slideshow">
+        <div class="container">
+          <div class="search-for-movies">
+            <h1 class="display-3 text-center">Wyszukaj filmy</h1>
+            <h4 class="h4 text-center">Wpisz tytuł filmu, aby wyszukać go w naszej bazie</h4>
+            <form class="search-form text-center mt-3" method="post">
+              <div class="row justify-content-center">
+                <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control m-0"  placeholder="Tytuł" aria-label="Tytuł" ng-model="searchQuery" required>
+                    <div class="input-group-append">
+                      <button class="btn btn-dark" type="submit" ng-click=searchList(searchQuery)>Szukaj</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="results" ng-show="showResults">
+      <div class="container">
+
+        <h1 class="display-4 mt-4 mb-4">Wyniki wyszukiwania frazy: {{ searchQuery }}</h1>
+
+        <div class="card mt-3" ng-repeat="movie in movieList | limitTo: 10">
+          <div class="row justify-content-center">
+            <div class="col-8 col-sm-4 col-md-3 col-lg-2 ">
+              <img class="img-fluid" src="https://image.tmdb.org/t/p/w300{{ movie.poster_path }}" alt="Card image cap" style="max-width: 100%; height: auto">
+
+            </div>
+            <div class="col-8 col-sm-8 col-md-9 col-lg-10 p-3 ">
+              <h2 class="h2">{{ movie.title }}</h2>
+              <p> {{ movie.original_title }}</p>
+              <hr>
+              <div class=row>
+                <div class="col">
+                  <h6 class="h6">Data publikacji: </h6>
+                  <h5 class="h5">{{ movie.release_date }}</h5>
+                </div>
+                <div class="col">
+                  <h6 class="h6">Popularność: </h6>
+                  <h5 class="h5">{{ movie.popularity }}</h5>
+                </div>
+                <div class="col">
+                  <h6 class="h6">Liczba głosów: </h6>
+                  <h5 class="h5">{{ movie.vote_count }}</h5>
+                </div>
+                <div class="col">
+                  <h6 class="h6">Średnia ocena: </h6>
+                  <h5 class="h5">{{ movie.vote_average }}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-right">
+                  <input class="btn btn-danger btn-sm mt-2" type="button" name="" value="Więcej szczegółów..." ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="container-fluid">
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ movieItem.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-md-4">
+                    <img ng-src="https://image.tmdb.org/t/p/w300{{movieItem.poster_path}}" alt="movie poster" class="img-fluid" style="max-width: 100%; height: auto;"/>
+                  </div>
+                  <div class="col-12 col-sm-6 col-md-4">
+                    <h5 class="h5">Kategoria:</h5>
+                    <ul>
+                      <li ng-repeat="genre in movieItem.genres">{{ genre.name }}</li>
+                    </ul>
+                    <h5 class="h5 mt-2">Kraje produkcji:</h5>
+                    <ul>
+                      <li ng-repeat="country in movieItem.production_countries">{{ country.name }}</li>
+                    </ul>
+                    <h5 class="h5 mt-2">Firmy produkcyjne:</h5>
+                    <ul>
+                      <li ng-repeat="company in movieItem.production_companies">{{ company.name }}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <h5 class="h5">Opis</h5>
+                    <p>{{ movieItem.overview }}</p>
+                    <h5 class="h5">Odnośnik do serwisu <strong>themoviedb.org</strong></h5>
+                    <p><a href="https://www.themoviedb.org/movie/{{movieItem.id}}" target="_blank" class="tooltip-test" title="Otwiera link w nowym oknie">{{ movieItem.title }}</a></p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Zamknij</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
   </main>
   <!-- jQuery -->
   <script type="text/javascript" src="./app/lib/jquery-3.2.1.min.js"></script>
-  <!-- Bootsrap script v 3.3.7 -->
-  <script type="text/javascript" src="./app/lib/bootstrap.min.js"></script>
+  <!-- Bootsrap script v 4.0.0 -->
+  <script type="text/javascript" src="./app/lib/bootstrap.bundle.min.js"></script>
   <!-- AngularJS v1.4.9 -->
   <script type="text/javascript" src="./app/lib/angular.min.js"></script>
   <!-- Angular APP -->
