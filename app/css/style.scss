@@ -1,5 +1,12 @@
 @import "./partials/slideshow";
 
+body, html {
+
+  @media screen and (max-width: 576px) {
+      font-size: 13px;
+  };
+}
+
 body {
   background: #0b0a0a;
   color: white;
