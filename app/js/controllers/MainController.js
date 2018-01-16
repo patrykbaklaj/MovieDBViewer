@@ -9,6 +9,24 @@ Viewer.controller('MainController', function MainController($scope, $http){
 
   // to controll ng-show on results
   $scope.showResults = false;
+  // sortOrder
+  $scope.sortOrder = "-vote_count";
+  // movie display on page limitTo
+  $scope.limit = 5;
+
+  // variable to controll more movies button
+  $scope.isMore = true;
+  // function to controll more movies button
+  $scope.moreMovies = function() {
+    if ($scope.moviesNumber > $scope.limit) {
+      $scope.limit += 5;
+      if($scope.moviesNumber <= $scope.limit){
+        $scope.isMore = false;
+      }
+    } else {
+      $scope.isMore = false;
+    }
+  };
 
   // Movie search by Title
   var onListSearchComplete = function(response) {
@@ -28,24 +46,6 @@ Viewer.controller('MainController', function MainController($scope, $http){
     $http.get($scope.url + $scope.searchQuery).then(onListSearchComplete, onListError);
   };
 
-  // sortOrder
-  $scope.sortOrder = "-vote_count";
-  // movie display on page limitTo
-  $scope.limit = 5;
-  $scope.isMore = true;
-
-  $scope.moreMovies = function() {
-    if ($scope.moviesNumber > $scope.limit) {
-      $scope.limit += 5;
-      if($scope.moviesNumber <= $scope.limit){
-          $scope.isMore = false;
-      }
-    } else {
-        $scope.isMore = false;
-    }
-  }
-
-
   // movie search by ID
   var urlId = "https://api.themoviedb.org/3/movie/";
 
@@ -56,7 +56,7 @@ Viewer.controller('MainController', function MainController($scope, $http){
   var onMovieError = function(reason) {
     $scope.error = reason;
     console.log("Niestety, coś poszło nie tak!");
-  }
+  };
 
   $scope.searchMovie = function(movieId){
     $http.get(urlId + movieId + "?api_key=" + key + "&language=pl-PL").then(onMovieSearchComplete, onMovieError);

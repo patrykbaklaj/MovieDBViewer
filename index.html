@@ -18,7 +18,7 @@
   <main>
 
     <section id="intro" >
-      <div class="outer-container slideshow">
+      <div class="outer-container">
         <div class="container">
           <div class="search-for-movies">
             <h1 class="display-3 text-center">Wyszukaj filmy</h1>
@@ -33,22 +33,20 @@
                     </div>
                   </div>
                 </div>
-
-              </div>
+              </div> <!--end of .row -->
             </form>
-          </div>
-        </div>
-      </div>
-    </section>
+          </div> <!--end of .search-for-movies -->
+        </div> <!--end of container -->
+      </div> <!--end of outer-container -->
+    </section> <!--end of section #intro -->
 
     <section class="results mb-5" ng-show="showResults">
       <div class="container">
-
         <h1 class="display-4 mt-4 mb-4">Wyniki wyszukiwania frazy: {{ searchQuery }}</h1>
         <div class="h3" ng-hide="moviesNumber">
           Brak wyników
         </div>
-        <div class="" ng-show="moviesNumber">
+        <div ng-show="moviesNumber">
 
 
           <div class="row">
@@ -95,16 +93,15 @@
                     <h6 class="h6">Średnia ocena: </h6>
                     <h5 class="h5">{{ movie.vote_average }}</h5>
                   </div>
-                </div>
+                </div> <!-- end of row-->
                 <div class="row">
                   <div class="col text-right mr-2">
                     <input class="btn btn-danger btn-sm btn-block" type="button" name="" value="Więcej szczegółów" ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
                   </div>
                 </div>
-              </div>
-            </div>
-
-          </div>
+              </div> <!-- end of col-8 col-sm-8 col-md-9 col-lg-10 p-3 -->
+            </div> <!--end of .row -->
+          </div> <!--end of ng-repeat // card -->
           <div class="row justify-content-center mt-3">
             <div class="col" ng-show="isMore">
               <button class="btn btn-info btn-sm btn-block mb-4" type="button" ng-click="moreMovies()" >Wczytaj więcej filmów</button>
@@ -113,8 +110,8 @@
               <button class="btn btn-info btn-sm btn-block mb-4" type="button" id="top">Powrót</button>
             </div>
           </div>
-        </div>
-      </div>
+        </div> <!--end of ng-show -->
+      </div> <!--end of .container -->
 
       <!-- Modal -->
       <div class="container-fluid">
@@ -164,13 +161,18 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> <!-- end of section results -->
 
   </main>
   <footer>
     <nav class="navbar fixed-bottom navbar-dark bg-dark p-0">
       <div class="container">
-        <a class="navbar-brand" href="https://patrykbaklaj.github.io/" target="_blank"><i class="material-icons mr-3">copyright</i><span> Patryk Bakłaj</span></a>
+        <div class="col-12 col-sm-6">
+          <a class="navbar-brand" href="https://patrykbaklaj.github.io/" target="_blank"><i class="material-icons mr-3">copyright</i><span> Patryk Bakłaj</span></a>
+        </div>
+        <div class="col-12 col-sm-6 text-right" style="color: white;">
+          <a href="https://www.themoviedb.org/" target="_blank">data from themoviedb.org</a>
+        </div>
       </div>
     </nav>
   </footer>

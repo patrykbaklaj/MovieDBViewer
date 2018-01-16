@@ -1,70 +1,82 @@
-@import "./partials/slideshow";
+@import './partials/colors';
 
-body, html {
+body,
+html {
 
   @media screen and (max-width: 576px) {
-      font-size: 13px;
+    font-size: 13px;
   };
+
+  background: $body-background;
+  color: $body-color;
 }
 
-body {
-  background: #0b0a0a;
-  color: white;
-}
+
 
 #intro {
-  height: 100vh;
-  background: #f1f1f1;
-  background: url("../lib/images/intro_back_1.jpg");
-  background-position: center;;
-  background-size: cover;
+  background: $intro-background;
+  background-image: url('../lib/images/intro_back_1.jpg');
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+
   .outer-container {
     height: 100%;
     width: 100%;
   }
+
   .container {
     z-index: 10;
     height: 100%;
+
     .search-for-movies {
-      height: 100%;
+      align-content: center;
+      color: $intro-color;
       display: flex;
       flex-direction: column;
-      align-content: center;
+      height: 100%;
       justify-content: center;
       z-index: 10;
-      color: white;
+
       h1 {
         margin: 1em;
       }
+
       input {
         margin: 1em;
       }
     }
   }
-
 }
 
-i.material-icons, a.navbar-brand span {
+i.material-icons,
+a.navbar-brand span {
   display: inline-flex;
   vertical-align: middle;
 }
 
 .card {
   display: block;
-  color: #000;
+  color: $card-color;
 }
 
 .modal {
-  color: #000;
+  color: $modal-color;
 }
 
 .navbar {
-  background: rgb(0, 0, 0) !important;
+  background: $navbar-background !important;
+  font-size: 0.9em !important;
   opacity: 0.5 !important;
   transition: all 0.4s;
-  font-size: 0.9em !important;
+
   &:hover {
     opacity: 1 !important;
+  }
+
+  a {
+    color: $navbar-color;
+    text-decoration: none;
   }
 }
