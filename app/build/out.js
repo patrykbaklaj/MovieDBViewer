@@ -73,20 +73,24 @@ module.exports = __webpack_require__(2);
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__) {
 
+"use strict";
 $("#top").on("click", function() {
-    $('html, body').animate({
-        scrollTop: $("body").offset().top
-    }, 2000);
-    $('#intro input').val("");
+  $('html, body').animate({
+    scrollTop: $("body").offset().top
+  }, 2000);
+  $('#intro input').val("");
 });
 
-$("#searchButton").on("click", function() {
-    $('html, body').animate({
-        scrollTop: $("section.results").offset().top
-    }, 1000);
-});
+$('.search-form').on("submit", scrollBody);
+
+function scrollBody() {
+  console.log("scroll");
+  $('html, body').delay(500).animate({
+    scrollTop: $("#intro").offset().top + window.innerHeight + 2
+  }, 1000);
+};
 
 
 /***/ }),

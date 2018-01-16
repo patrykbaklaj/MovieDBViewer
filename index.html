@@ -13,7 +13,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="./app/build/main.css">
 </head>
-<body ng-app="Viewer" ng-controller="MainController">
+<body ng-app="Viewer" ng-controller="MainController" class=".body">
 
   <main>
 
@@ -23,13 +23,13 @@
           <div class="search-for-movies">
             <h1 class="display-3 text-center">Wyszukaj filmy</h1>
             <h4 class="h4 text-center">Wpisz tytuł filmu, aby wyszukać go w naszej bazie</h4>
-            <form class="search-form text-center mt-3">
+            <form class="search-form text-center mt-3" ng-submit="searchList(searchQuery)">
               <div class="row justify-content-center">
                 <div class="col-10 col-sm-8 col-md-6 col-lg-4">
                   <div class="input-group mb-3">
                     <input type="text" class="form-control m-0"  placeholder="Tytuł" aria-label="Tytuł" ng-model="searchQuery" required>
                     <div class="input-group-append">
-                      <button id="searchButton" class="btn btn-dark" type="submit" ng-click=searchList(searchQuery)><i class="material-icons">search</i> <span>Szukaj</span></button>
+                      <button id="searchButton" class="btn btn-dark" type="submit"><i class="material-icons">search</i> <span>Szukaj</span></button>
                     </div>
                   </div>
                 </div>
@@ -97,8 +97,8 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col text-right">
-                    <input class="btn btn-danger btn-sm mt-2" type="button" name="" value="Więcej szczegółów" ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                  <div class="col text-right mr-2">
+                    <input class="btn btn-danger btn-sm btn-block" type="button" name="" value="Więcej szczegółów" ng-click="searchMovie(movie.id)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
                   </div>
                 </div>
               </div>

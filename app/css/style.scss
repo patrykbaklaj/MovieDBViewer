@@ -1,5 +1,9 @@
 @import "./partials/slideshow";
 
+body {
+  background: #0b0a0a;
+  color: white;
+}
 
 #intro {
   height: 100vh;
@@ -37,6 +41,15 @@
 i.material-icons, a.navbar-brand span {
   display: inline-flex;
   vertical-align: middle;
+}
+
+.card {
+  display: block;
+  color: #000;
+}
+
+.modal {
+  color: #000;
 }
 
 .navbar {

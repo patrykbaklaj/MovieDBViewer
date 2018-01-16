@@ -1,3 +1,4 @@
+
 Viewer.controller('MainController', function MainController($scope, $http){
 
   // API key
@@ -20,8 +21,8 @@ Viewer.controller('MainController', function MainController($scope, $http){
 
   var onListError = function(reason) {
     $scope.error = reason;
-    console.log("Niestety, coś poszło nie tak!");
-  }
+    console.log("Coś poszło nie tak!");
+  };
 
   $scope.searchList = function(searchQuery){
     $http.get($scope.url + $scope.searchQuery).then(onListSearchComplete, onListError);
@@ -50,7 +51,6 @@ Viewer.controller('MainController', function MainController($scope, $http){
 
   var onMovieSearchComplete = function(response) {
     $scope.movieItem = response.data;
-    console.log($scope.movieItem);
   };
 
   var onMovieError = function(reason) {
@@ -59,7 +59,6 @@ Viewer.controller('MainController', function MainController($scope, $http){
   }
 
   $scope.searchMovie = function(movieId){
-    console.log(movieId)
     $http.get(urlId + movieId + "?api_key=" + key + "&language=pl-PL").then(onMovieSearchComplete, onMovieError);
     $scope.movieDetails = true;
   };

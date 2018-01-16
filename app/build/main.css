@@ -10,6 +10,10 @@
   30% {
     opacity: 0; } }
 
+body {
+  background: #0b0a0a;
+  color: white; }
+
 #intro {
   height: 100vh;
   background: #f1f1f1;
@@ -49,6 +53,13 @@ i.material-icons, a.navbar-brand span {
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle; }
+
+.card {
+  display: block;
+  color: #000; }
+
+.modal {
+  color: #000; }
 
 .navbar {
   background: black !important;
